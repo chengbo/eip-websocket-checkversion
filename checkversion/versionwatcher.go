@@ -27,7 +27,7 @@ func (self *VersionWatcher) Watch(path string) {
 		for {
 			select {
 			case <-watcher.Event:
-				data, err := ioutil.ReadFile(path)
+				data, err := ioutil.ReadFile("D:\\Applications\\EIP4.0\\Web\\version.json")
 				var object map[string]interface{}
 				// skip the BOM
 				err = json.Unmarshal([]byte(data)[3:], &object)
