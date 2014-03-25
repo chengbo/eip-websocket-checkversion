@@ -45,7 +45,7 @@ func (self *Server) Listen() {
 	}
 
 	watcher := NewVersionWatcher(self)
-	go watcher.Watch("D:\\Applications\\EIP4.0\\Web\\version.json")
+	go watcher.Watch("D:\\Applications\\EIP4.0\\Web_Candidates\\modify.notice")
 
 	http.Handle(self.path, websocket.Handler(onConnected))
 	log.Println("websocket handler created")
