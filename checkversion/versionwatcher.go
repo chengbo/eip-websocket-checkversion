@@ -28,6 +28,10 @@ func (self *VersionWatcher) Watch(path string) {
 			select {
 			case <-watcher.Event:
 				data, err := ioutil.ReadFile("D:\\Applications\\EIP4.0\\Web\\version.json")
+				if err != nil {
+					log.Println(err)
+					break
+				}
 				var object map[string]interface{}
 				// skip the BOM
 				err = json.Unmarshal([]byte(data)[3:], &object)
