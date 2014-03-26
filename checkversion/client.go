@@ -49,7 +49,6 @@ func (self *Client) handleWriteRequest() {
 
 		case <-self.done:
 			self.server.RemoveClient() <- self
-			self.done <- true
 			return
 		}
 	}
@@ -70,6 +69,7 @@ func (self *Client) listenRead() {
 			err := websocket.JSON.Receive(self.ws, version)
 			if err != nil {
 				self.done <- true
+				return
 			} else {
 				self.server.VersionChanged() <- version
 			}
