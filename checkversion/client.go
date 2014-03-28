@@ -68,8 +68,15 @@ func (self *Client) listenRead() {
 			var version string
 			err := websocket.JSON.Receive(self.ws, version)
 			if err != nil {
-				self.done <- true
-				return
+				if err.Error() == "not implemented" {
+					// some browsers keep sending 'pong' frame to the server
+					// and the websocket library doesn't support it yet
+					// so here we simply ignore it
+					log.Println("pong frame received, just ignore it here...")
+				} else {
+					self.done <- true
+					return
+				}
 			} else {
 				self.server.VersionChanged() <- version
 			}
